@@ -47,7 +47,7 @@ public class DetailActivityFragment extends Fragment {
         // Inflate the menu; this adds items to the action bar if it is present.
 //        getMenuInflater().inflate(R.menu.menu_main, menu);
         inflater.inflate(R.menu.detailfragment, menu);
-        MenuItem menuItem = menu.findItem(R.string.action_share);
+        MenuItem menuItem = menu.findItem(R.id.action_share);
         ShareActionProvider mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
 
         if (mShareActionProvider != null) {
@@ -57,7 +57,7 @@ public class DetailActivityFragment extends Fragment {
 
     private Intent createShareForecastIntent() {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, mForecastStr + FORECAST_SHARE_HASHTAG);
         return shareIntent;

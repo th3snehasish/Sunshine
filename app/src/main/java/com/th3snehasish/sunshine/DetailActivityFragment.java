@@ -3,7 +3,12 @@ package com.th3snehasish.sunshine;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.ShareActionProvider;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -16,7 +21,7 @@ public class DetailActivityFragment extends Fragment {
 
 
     private final String LOG_TAG = DetailActivityFragment.class.getSimpleName();
-    private final String FORECAST_STRING_HASHTAG = " # SunshineApp";
+    private final String FORECAST_SHARE_HASHTAG = " # SunshineApp";
     private String mForecastStr;
 
     public DetailActivityFragment() {
@@ -37,11 +42,24 @@ public class DetailActivityFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.detailfragment, menu);
+        MenuItem menuItem = menu.findItem(R.string.action_share);
+        ShareActionProvider mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(createShareForecastIntent());
+        }
+    }
+
     private Intent createShareForecastIntent() {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
-//        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT,mForecastStr + FORECAST_STRING_HASHTAG);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, mForecastStr + FORECAST_SHARE_HASHTAG);
         return shareIntent;
     }
 }

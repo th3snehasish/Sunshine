@@ -13,12 +13,15 @@ import android.widget.TextView;
  */
 public class DetailActivityFragment extends Fragment {
 
-    public DetailActivityFragment() {
-    }
+
 
     private final String LOG_TAG = DetailActivityFragment.class.getSimpleName();
     private final String FORECAST_STRING_HASHTAG = " # SunshineApp";
     private String mForecastStr;
+
+    public DetailActivityFragment() {
+    setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +39,7 @@ public class DetailActivityFragment extends Fragment {
 
     private Intent createShareForecastIntent() {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+//        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT,mForecastStr + FORECAST_STRING_HASHTAG);
         return shareIntent;

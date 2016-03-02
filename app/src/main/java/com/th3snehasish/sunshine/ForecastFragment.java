@@ -128,7 +128,10 @@ public class ForecastFragment extends Fragment {
     public class FetchWeatherTask extends AsyncTask<String,Void, String[]> {
 
         private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
-        Context mContext;
+
+        // don't forget to initialize variables
+        Context mContext = getContext();
+        
         private long insertLocationInDatabase(String locationSetting, String cityName, double lat, double lon) {
 
             Cursor cursor = mContext.getContentResolver().query(
